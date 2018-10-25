@@ -876,6 +876,19 @@ type SYSTEMTIME struct {
 	Milliseconds uint16
 }
 
+// https://docs.microsoft.com/en-us/windows/desktop/api/sysinfoapi/ns-sysinfoapi-_system_info
+type SYSTEM_INFO struct {
+	dwPageSize                  uint16
+	lpMinimumApplicationAddress unsafe.Pointer
+	lpMaximumApplicationAddress unsafe.Pointer
+	dwActiveProcessorMask       ULONG_PTR
+	dwNumberOfProcessors        uint16
+	dwProcessorType             uint16
+	dwAllocationGranularity     uint16
+	wProcessorLevel             uint16
+	wProcessorRevision          uint16
+}
+
 // http://msdn.microsoft.com/en-us/library/windows/desktop/ms644967(v=vs.85).aspx
 type KBDLLHOOKSTRUCT struct {
 	VkCode      DWORD
