@@ -879,15 +879,17 @@ type SYSTEMTIME struct {
 
 // https://docs.microsoft.com/en-us/windows/desktop/api/sysinfoapi/ns-sysinfoapi-_system_info
 type SYSTEM_INFO struct {
-	dwPageSize                  DWORD
-	lpMinimumApplicationAddress unsafe.Pointer
-	lpMaximumApplicationAddress unsafe.Pointer
-	dwActiveProcessorMask       ULONG_PTR
-	dwNumberOfProcessors        DWORD
-	dwProcessorType             DWORD
-	dwAllocationGranularity     DWORD
-	wProcessorLevel             WORD
-	wProcessorRevision          WORD
+	WProcessorArchitecture      uint16
+	WReserved                   uint16
+	DwPageSize                  uint32
+	LpMinimumApplicationAddress uintptr
+	LpMaximumApplicationAddress uintptr
+	DwActiveProcessorMask       uintptr
+	DwNumberOfProcessors        uint32
+	DwProcessorType             uint32
+	DwAllocationGranularity     uint32
+	WProcessorLevel             uint16
+	WProcessorRevision          uint16
 }
 
 // http://msdn.microsoft.com/en-us/library/windows/desktop/ms644967(v=vs.85).aspx
@@ -906,11 +908,11 @@ type WNDENUMPROC func(HWND, LPARAM) LRESULT
 
 // https://docs.microsoft.com/en-us/windows/desktop/api/winnt/ns-winnt-_memory_basic_information
 type MEMORY_BASIC_INFORMATION struct {
-	BaseAddress       PVOID
-	AllocationBase    PVOID
-	AllocationProtect DWORD
-	RegionSize        ULONG_PTR
-	State             DWORD
-	Protect           DWORD
-	Type              DWORD
+	BaseAddress       uint64
+	AllocationBase    uint64
+	AllocationProtect uint32
+	RegionSize        uint64
+	State             uint32
+	Protect           uint32
+	Type              uint32
 }

@@ -18,6 +18,7 @@ var (
 	procGetCurrentThread   = modkernel32.NewProc("GetCurrentThread")
 	procGetLogicalDrives   = modkernel32.NewProc("GetLogicalDrives")
 	procGetUserDefaultLCID = modkernel32.NewProc("GetUserDefaultLCID")
+	procGetSystemInfo      = modkernel32.NewProc("GetSystemInfo")
 	procLstrlen            = modkernel32.NewProc("lstrlenW")
 	procLstrcpy            = modkernel32.NewProc("lstrcpyW")
 	procGlobalAlloc        = modkernel32.NewProc("GlobalAlloc")
@@ -94,6 +95,16 @@ func GetUserDefaultLCID() uint32 {
 	ret, _, _ := procGetUserDefaultLCID.Call()
 
 	return uint32(ret)
+}
+
+func GetSystemInfo() SYSTEM_INFO {
+	lpSystemInfo := SYSTEM_INFO{}
+
+	procGetSystemInfo.Call(
+		uintptr(unsafe.Pointer(&lpSystemInfo)),
+	)
+
+	return lpSystemInfo
 }
 
 func Lstrlen(lpString *uint16) int {
