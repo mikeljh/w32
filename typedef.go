@@ -889,3 +889,14 @@ type HOOKPROC func(int, WPARAM, LPARAM) LRESULT
 
 // https://msdn.microsoft.com/en-us/library/windows/desktop/ms633498(v=vs.85).aspx
 type WNDENUMPROC func(HWND, LPARAM) LRESULT
+
+// https://docs.microsoft.com/en-us/windows/desktop/api/winnt/ns-winnt-_memory_basic_information
+type MEMORY_BASIC_INFORMATION struct {
+	BaseAddress       uint64
+	AllocationBase    uint64
+	AllocationProtect uint32
+	RegionSize        uint64
+	State             uint32
+	Protect           uint32
+	Type              uint32
+}
