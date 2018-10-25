@@ -47,6 +47,7 @@ var (
 	procVirtualFreeEx              = modkernel32.NewProc("VirtualFreeEx")
 	procWriteProcessMemory         = modkernel32.NewProc("WriteProcessMemory")
 	procReadProcessMemory          = modkernel32.NewProc("ReadProcessMemory")
+	procVirtualQueryEx             = modkernel32.NewProc("VirtualQueryEx")
 	procQueryPerformanceCounter    = modkernel32.NewProc("QueryPerformanceCounter")
 	procQueryPerformanceFrequency  = modkernel32.NewProc("QueryPerformanceFrequency")
 )
@@ -367,6 +368,19 @@ func ReadProcessMemory(hProcess HANDLE, lpBaseAddress, nSize uintptr) (lpBuffer 
 	)
 
 	return buf, nBytesRead, ret != 0
+}
+
+func VirtualQueryEx(hProcess HANDLE, lpBaseAddress uint64) (output MEMORY_BASIC_INFORMATION, ok bool) {
+	memBasicInfo := MEMORY_BASIC_INFORMATION{}
+
+	ret, _, _ := procVirtualQueryEx.Call(
+		uintptr(hProcess),
+		uintptr(lpBaseAddress),
+		uintptr(unsafe.Pointer(&memBasicInfo)),
+		unsafe.Sizeof(memBasicInfo),
+	)
+
+	return memBasicInfo, ret != 0
 }
 
 func QueryPerformanceCounter() uint64 {
