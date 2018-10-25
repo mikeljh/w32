@@ -911,8 +911,10 @@ type MEMORY_BASIC_INFORMATION struct {
 	BaseAddress       uint64
 	AllocationBase    uint64
 	AllocationProtect uint32
+	__alignment1      uint32
 	RegionSize        uint64
 	State             uint32
 	Protect           uint32
 	Type              uint32
+	__alignment2      uint32
 }
